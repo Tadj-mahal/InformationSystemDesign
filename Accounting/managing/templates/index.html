@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="../static/css/main.css">
+	<title>My Django Page</title>
+</head>
+<body>
+
+	<h1>DEPARTMENT CODES</h1>
+
+	<div>
+		<!-- Форма для ввода -->
+		<form action="{% url 'submit' %}" method="post">
+			{% csrf_token %}
+            {% for field in form %}
+            <label for="input_field">{{field.label}}</label>
+            <div>{{field}}</div>
+            {% if field.errors %}
+            <p>{{field.errors}}</p>
+            {% endif %}
+            {% endfor %}
+
+			{% csrf_token %}
+			
+			<label for="">Operation System: <select name="OS" id="OS">
+            <option selected disabled>-- Choose operation system --</option>
+            <option value="windows">Windows</option> <!-- наличные -->
+            <option value="linux">Linux</option> <!-- безнал -->
+            <option value="macos">Mac OS</option> <!-- кредит -->
+            <option value="debian">Debian</option> <!-- бартер -->
+            <option value="openbsd">Openbsd</option> <!-- взаимозачёт -->
+        	</select></label>
+			<input type="text" id="input_field" name="IAC">
+			<button type="submit">Отправить</button>
+		</form>
+	</div>
+
+	<div>
+		<!-- Таблица справа -->
+		<table>
+			<thead>
+				<tr>
+					<th>IAC</th>
+					<th>Department Code</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for elem in codes %}
+				<tr>
+					<td>{{elem.IAC}}</td>
+					<td>{{elem.DepCode}}</td>	
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+</body>
+</html>
