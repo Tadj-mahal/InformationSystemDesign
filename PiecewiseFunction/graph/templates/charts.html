@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="shortcut icon" href="#">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+     google.charts.load('current', {'packages':['line']});
+     google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'x');
+      data.addColumn('number', 'y');
+
+      data.addRows({{values|safe}});
+
+      var options = {
+        chart: {
+          title: 'Linear graphic',
+          subtitle: 'lottadem (USD)'
+        },
+        width: 900,
+        height: 500
+      };
+
+      var chart = new google.charts.Line(document.getElementById('linechart_material'));
+
+      chart.draw(data, google.charts.Line.convertOptions(options));
+    }
+    </script>
+    <title>Chart</title>
+</head>
+
+<body>
+    <form method='post'>
+        {% csrf_token %}
+        <label for="">Input value: <input type="text" name='add_point'></input></label>
+        <button type="submit">Add value</button>
+    </form>
+    <a href="{% url 'clr_data' %}">Reset graphic</a>
+    {% if error %}
+    <h2 style="background-color:#ff6347;">{{error}}</h2>
+    {% endif %}
+    {% if success %}
+    <h2 style="background-color:#3cb371;">{{success}}</h2>
+    {% endif %}
+    <div>
+        <table border="1" cellpadding="5px" style="float: right; width: 10%;">
+            <tr>
+                <td>[x, y]</td>
+            </tr>
+            {% for val in data %}
+            <tr>
+                <td>{{val}}</td>
+    </div>
+    </tr>
+    {% endfor %}
+    </table>
+    <div id='linechart_material' style="float: left; width: 70%;"></div>
+    <div style="clear: both; width: 100%;">
+        <a href="{% url 'interval' %}">Get statistics</a>
+    </div>
+    </div>
+</body>
+
+</html>

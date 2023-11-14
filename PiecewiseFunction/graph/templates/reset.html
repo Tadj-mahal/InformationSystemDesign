@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reset</title>
+</head>
+
+<body>
+    <div class="buttons">
+        <p>Are you sure you want to reset table</p>
+        <form action="{% url 'clr_data'%}" method="post">
+            {% csrf_token %}
+            <a href="../..">Cancel</a>
+            <button type="submit">Reset</button>
+        </form>
+    </div>
+</body>
+
+</html>
