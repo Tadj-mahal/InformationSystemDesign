@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+</head>
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <label for = "">{{field.label}}</label>
+        <div>{{field}}</div>
+        {% if field.errors %}
+        <p>{{field.errors}}</p>
+        {% endif %}
+        {% endfor %}
+        <button type="submit">create new user</button>
+    </form>
+</body>
+</html>
