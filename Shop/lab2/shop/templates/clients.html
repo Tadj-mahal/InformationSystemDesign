@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Clients</h2>
+<form action="" method='post'>
+    {% csrf_token %}
+    <label for="">Input name</label>
+    <input type="text" name='search'>
+    <button>Search</button>
+</form>
+{% if empty %}
+<h2>Searching result of "{{query}}"</h2>
+<p>{{empty}}</p>
+{% endif %}
+<table border='1'>
+    <tr>
+        <td>Name</td>
+        <td>Shopping bag</td>
+        <td>Current account</td>
+        <td>Current limit</td>
+        <td>Current doubt</td>
+        <td>Comment</td>
+        <td>Loan balance</td>
+    </tr>
+    <tr>
+        {% for elem in result_list %}
+        <td>{{elem.name}}</td>
+        <td>{{elem.shopping_bag}}</td>
+        <td>{{elem.current_account}}</td>
+        <td>{{elem.credit_limit}}</td>
+        <td>{{elem.current_doubt}}</td>
+        <td>{{elem.comment}}</td>
+        <td>{{lb}}</td>
+        {% endfor %}
+    </tr>
+</table>
+{% endblock content %}

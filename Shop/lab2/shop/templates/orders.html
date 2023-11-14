@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Form order</h2>
+<form action="" method='post'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <label for="">Input name: <input type="text" name='searchclient'></label>
+    <label for="">Input product: <input type="text" name='searchproduct'></label>
+    <label for="">Input number of goods: <input type="number" name='goodsnumber'></label>
+    <label for="paymethod">Pay method: <select name="paymethod" id="paymethod">
+            <option selected disabled>-- Choose pay method --</option>
+            <option value="cash">Cash</option> <!-- наличные -->
+            <option value="cashless">Cashless payment</option> <!-- безнал -->
+            <option value="credit">Credit</option> <!-- кредит -->
+            <option value="exchange">Exchange</option> <!-- бартер -->
+            <option value="mutoffset">Mutual offset</option> <!-- взаимозачёт -->
+        </select></label>
+    <button type="submit">Form</button>
+</form>
+{% if empty %}
+<h2>Searching result of "{{query}}"</h2>
+<p>{{empty}}</p>
+{% else %}
+<table border='1'>
+    <tr>
+        <td>Name</td>
+        <td>Shopping bag</td>
+        <td>Current account</td>
+        <td>Current limit</td>
+        <td>Current doubt</td>
+        <td>Comment</td>
+        <td>Loan balance</td>
+    </tr>
+    <tr>
+        {% for elem in result_list %}
+        <td>{{elem.name}}</td>
+        <td>{{elem.shopping_bag}}</td>
+        <td>{{elem.current_account}}</td>
+        <td>{{elem.credit_limit}}</td>
+        <td>{{elem.current_doubt}}</td>
+        <td>{{elem.comment}}</td>
+        <td>{{lb}}</td>
+        {% endfor %}
+    </tr>
+</table>
+{% endif %}
+{% if product_empty %}
+<h2>Searching result of "{{product_query}}"</h2>
+<p>{{product_empty}}</p>
+{% else %}
+<table border='1'>
+    <tr>
+        <td>Name</td>
+        <td>Price</td>
+        <td>Stock balance</td>
+    </tr>
+    <tr>
+        {% for elem in product_result_list %}
+        <td>{{elem.name}}</td>
+        <td>{{elem.price}}</td>
+        <td>{{elem.stock_balance}}</td>
+        {% endfor %}
+    </tr>
+</table>
+{% endif %}
+{% if error %}
+<h2 style="background-color:#ff6347;">{{error}}</h2>
+{% endif %}
+{% if success %}
+<h2 style="background-color:#3cb371;">{{success}}</h2>
+{% endif %}
+{% endblock content %}

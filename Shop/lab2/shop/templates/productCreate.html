@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<style type="text/css">
+    div#wrapper {
+      float: left;
+      width: 50%;
+    }
+    div#navigation {
+      float: right;
+      width: 50%;
+    }
+</style>
+<div id="wrapper">
+        <form action="" method="post" style="float: left;">
+            {% csrf_token %}
+            {% for field in form %}
+            <label for="">{{field.label}}</label>
+            <div>{{field}}</div>
+            {% if field.errors %}
+            <p>{{field.errors}}</p>
+            {% endif %}
+            {% endfor %}
+            <button type="submit" name="Submit">Create product</button>
+        </form>
+</div>
+
+<div id="navigation">
+        <table border="1" cellpadding="5px" style="float: right;">
+            <tr>
+                <td>Name</td>
+                <td>Price</td>
+                <td>Stock balance</td>
+            </tr>
+            {% for product in products %}
+            <tr>
+                <td>{{product.name}}</td>
+                <td>{{product.price}}</td>
+                <td>{{product.stock_balance}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+</div>
+{% endblock content %}
